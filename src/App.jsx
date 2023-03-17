@@ -8,6 +8,12 @@ function App() {
                 <div className="title">
                     <h1>할 일 목록</h1>
                 </div>
+
+                <div className="getStyle">
+                    <input type="checkbox" defaultChecked={false} />
+                    공부하기
+                    <button className="btnStyle">x</button>
+                </div>
             </div>
         </div>
     );
