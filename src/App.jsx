@@ -11,10 +11,18 @@ function App() {
         {
             id: "2",
             title: "청소하기",
-            completed: true,
+            completed: false,
         },
     ]);
     const [valueText, setValueText] = useState("");
+
+    const getStyle = (completed) => {
+        return {
+            padding: "10px",
+            borderBottom: "1px #ccc dotted",
+            textDecoration: completed ? "line-through" : "none",
+        };
+    };
 
     const handleClick = (id) => {
         let newTodoData = todoDatas.filter((data) => data.id !== id);
@@ -33,6 +41,17 @@ function App() {
             completed: false,
         };
         setTodoDatas([...todoDatas, newTodo]);
+        setValueText("");
+    };
+
+    const handleCompleChange = (id) => {
+        let newTodoData = todoDatas.map((data) => {
+            if (data.id === id) {
+                data.completed = !data.completed;
+            }
+            return data;
+        });
+        setTodoDatas(newTodoData);
     };
 
     return (
@@ -43,8 +62,8 @@ function App() {
                 </div>
 
                 {todoDatas.map((data) => (
-                    <div className="getStyle" key={data.id}>
-                        <input type="checkbox" defaultChecked={false} />
+                    <div style={getStyle(data.completed)} key={data.id}>
+                        <input type="checkbox" defaultChecked={false} onChange={() => handleCompleChange(data.id)} />
                         {data.title}
                         <button className="btnStyle" onClick={() => handleClick(data.id)}>
                             x

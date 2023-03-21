@@ -9,19 +9,13 @@
         border-radius: 10px;
         box-shadow: -9px 17px 13px rgb(0, 0, 0 / 16%);
 
-        .getStyle {
-            padding: 10px;
-            border-bottom: 1px #ccc dotted;
-            text-decoration: none;
-
-            .btnStyle {
-                color: #fff;
-                bottom: none;
-                padding: 5px 9px;
-                border-radius: 50%;
-                cursor: pointer;
-                float: right;
-            }
+        .btnStyle {
+            color: #fff;
+            bottom: none;
+            padding: 5px 9px;
+            border-radius: 50%;
+            cursor: pointer;
+            float: right;
         }
     }
 }
