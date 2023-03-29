@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import "./App.scss";
 import Form from "./components/Form";
 import Lists from "./components/Lists";
 
+const initialTodoDatas = localStorage.getItem("todoData") ? JSON.parse(localStorage.getItem("todoData")) : [];
+
 const App = () => {
-    const [todoDatas, setTodoDatas] = useState([]);
+    const [todoDatas, setTodoDatas] = useState(initialTodoDatas);
     const [valueText, setValueText] = useState("");
 
     const handleSubmit = (e) => {
@@ -15,12 +17,22 @@ const App = () => {
             completed: false,
         };
         setTodoDatas((prev) => [...prev, newTodo]);
+        localStorage.setItem("todoData", JSON.stringify([...todoDatas, newTodo]));
         setValueText("");
     };
 
-    const handleClick = (id) => {
-        let newTodoData = todoDatas.filter((data) => data.id !== id);
-        setTodoDatas(newTodoData);
+    const handleClick = useCallback(
+        (id) => {
+            let newTodoData = todoDatas.filter((data) => data.id !== id);
+            setTodoDatas(newTodoData);
+            localStorage.setItem("todoData", JSON.stringify(newTodoData));
+        },
+        [todoDatas]
+    );
+
+    const handleRemoveClick = () => {
+        setTodoDatas([]);
+        localStorage.setItem("todoData", JSON.stringify([]));
     };
 
     return (
@@ -28,6 +40,7 @@ const App = () => {
             <div className="w-full p-6 m-4 bg-white rounded shadow lg:w-3/4 lg:max-w-lg">
                 <div className="flex justify-between mb-3">
                     <h1>할 일 목록</h1>
+                    <button onClick={handleRemoveClick}>Delete All</button>
                 </div>
                 <Lists todoDatas={todoDatas} setTodoDatas={setTodoDatas} handleClick={handleClick} />
                 <Form handleSubmit={handleSubmit} valueText={valueText} setValueText={setValueText} />
