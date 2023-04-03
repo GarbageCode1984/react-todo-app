@@ -75,7 +75,7 @@ const List = React.memo(({ id, title, completed, todoDatas, setTodoDatas, provid
                         defaultChecked={completed ? true : false}
                         onChange={() => handleCompleChange(id)}
                         className="accent-pink-500 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 
-                        rounded focus:ring-pink-500 dark:focus:ring-pink-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        rounded"
                     />
                 </div>
                 <span className={completed ? "line-through" : undefined}>{title}</span>
